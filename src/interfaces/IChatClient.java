@@ -9,12 +9,12 @@ public interface IChatClient {
     /**
      * Configure the chat client Socket
      */
-    void configurarCliente() throws Exception;
+    void setupClient() throws Exception;
 
     /**
      * Configure the chat client Socket
      */
-    void configurarCliente(Socket socket);
+    void setupClient(Socket socket);
 
     /**
      * Send a message to other client(s)

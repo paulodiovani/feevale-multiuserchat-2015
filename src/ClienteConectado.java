@@ -16,15 +16,15 @@ public class ClienteConectado implements IChatClient, Runnable {
     PrintWriter saida;
 
     public ClienteConectado(Socket s, IChatServer server){
-        configurarCliente(s);
+        setupClient(s);
         this.server = server;
     }
 
-    public void configurarCliente() throws Exception {
+    public void setupClient() throws Exception {
         throw new Exception("Missing argument 'Socket'");
     }
     
-    public void configurarCliente(Socket s) {
+    public void setupClient(Socket s) {
         this.s = s;
         try {
             entrada = new BufferedReader(

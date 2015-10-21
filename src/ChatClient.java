@@ -46,7 +46,7 @@ public class ChatClient implements IChatClient, Runnable {
         return porta;
     }
     
-    public void configurarCliente(){
+    public void setupClient(){
         try {
             s = new Socket(host, porta);
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -56,8 +56,8 @@ public class ChatClient implements IChatClient, Runnable {
         }
     }
 
-    public void configurarCliente(Socket s) {
-        configurarCliente();
+    public void setupClient(Socket s) {
+        setupClient();
     }
     
     public void iniciar(){
@@ -85,7 +85,7 @@ public class ChatClient implements IChatClient, Runnable {
 
     @Override
     public void run() {
-        configurarCliente();
+        setupClient();
         receiveMessage();
     }
 }
