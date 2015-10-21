@@ -1,4 +1,3 @@
-
 import interfaces.IChatClient;
 import interfaces.IChatServer;
 
@@ -7,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * Connected chat client class
+ */
 public class ClienteConectado implements IChatClient, Runnable {
     private Socket s;
     private IChatServer server;
