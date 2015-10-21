@@ -1,4 +1,6 @@
 
+import interfaces.IChatClient;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -15,7 +17,7 @@ import javax.swing.JTextArea;
  *
  * @author gabriel
  */
-public class ChatClient implements Runnable{
+public class ChatClient implements IChatClient, Runnable {
     String host;
     int porta;
     Thread thCliente;

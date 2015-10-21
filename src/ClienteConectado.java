@@ -1,4 +1,5 @@
 
+import interfaces.IChatClient;
 import interfaces.IChatServer;
 
 import java.io.BufferedReader;
@@ -6,24 +7,17 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+public class ClienteConectado implements IChatClient, Runnable {
+    private Socket s;
+    private IChatServer server;
 
-/**
- *
- * @author gabriel
- */
-public class ClienteConectado implements Runnable{
-    Socket s;
     Thread thRecebeMsg;
     BufferedReader entrada;
     PrintWriter saida;
 
-    public ClienteConectado(Socket s){
+    public ClienteConectado(Socket s, IChatServer server){
         configurarCliente(s);
+        this.server = server;
     }
     
     public void configurarCliente(Socket s){
@@ -45,7 +39,7 @@ public class ClienteConectado implements Runnable{
             String msg;
             while((msg = entrada.readLine()) != null){
                 System.out.println(msg);
-                for(ClienteConectado cliente:MultiUserChatServer.clientes){
+                for(IChatClient cliente:server.getClients()){
                     cliente.enviarMensagem(msg);
                 }
             }
