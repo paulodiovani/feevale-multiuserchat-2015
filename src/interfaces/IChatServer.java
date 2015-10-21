@@ -1,9 +1,11 @@
 package interfaces;
 
+import java.util.List;
+
 /**
  * Chat interface for Servers
  */
-public interface ChatServer {
+public interface IChatServer {
     /**
      * Configures and start a chat server
      */
@@ -14,4 +16,5 @@ public interface ChatServer {
      */
     void waitForClients();
 
+    List<ChatClient> getClients();
 }

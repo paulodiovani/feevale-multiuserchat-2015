@@ -1,5 +1,5 @@
 
-import interfaces.ChatServer;
+import interfaces.*;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Chat Server for various clients
  */
-public class MultiUserChatServer implements ChatServer {
+public class MultiUserChatServer implements IChatServer {
     static List<ClienteConectado> clientes = new ArrayList<>();
     ServerSocket ss;
     Socket socketNovoCliente;
