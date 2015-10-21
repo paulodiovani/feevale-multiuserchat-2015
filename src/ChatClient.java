@@ -1,3 +1,4 @@
+import interfaces.IChatClient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -5,27 +6,20 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import javax.swing.JTextArea;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
- * @author gabriel
+ * Chat client class
  */
-public class ChatClient implements Runnable{
-    String host;
-    int porta;
-    Thread thCliente;
-    Socket s;
-    BufferedReader in;
-    PrintWriter out;
-    JTextArea txtSaida;
+public class ChatClient implements IChatClient, Runnable {
+    private String host;
+    private int port;
+    private Thread clientThread;
+    private Socket s;
+    private BufferedReader in;
+    private PrintWriter out;
+    private JTextArea outText;
 
-    public void setTxtSaida(JTextArea txtSaida) {
-        this.txtSaida = txtSaida;
+    public void setOutText(JTextArea outText) {
+        this.outText = outText;
     }
     
     public void setHost(String host) {
@@ -36,43 +30,46 @@ public class ChatClient implements Runnable{
         return host;
     }
 
-    public void setPorta(int porta) {
-        this.porta = porta;
+    public void setPort(int port) {
+        this.port = port;
     }
 
-    public int getPorta() {
-        return porta;
+    public int getPort() {
+        return port;
     }
     
-    public void configurarCliente(){
+    public void setupClient(){
         try {
-            s = new Socket(host, porta);
+            s = new Socket(host, port);
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out = new PrintWriter(s.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+    }
+
+    public void setupClient(Socket s) {
+        setupClient();
     }
     
     public void iniciar(){
-        thCliente = new Thread(this);
-        thCliente.start();
+        clientThread = new Thread(this);
+        clientThread.start();
     }
     
-    public void receberMensagens(){
+    public void receiveMessage(){
         try {
             String msg;
             while((msg = in.readLine()) != null){
-                txtSaida.append(msg);
-                txtSaida.append("\n");
+                outText.append(msg);
+                outText.append("\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public void enviarMensagem(String msg){
+    public void sendMessage(String msg){
         out.println(msg);
         out.flush();
         System.out.println(msg);
@@ -80,7 +77,7 @@ public class ChatClient implements Runnable{
 
     @Override
     public void run() {
-        configurarCliente();
-        receberMensagens();
+        setupClient();
+        receiveMessage();
     }
 }

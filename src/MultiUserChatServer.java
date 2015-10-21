@@ -1,24 +1,19 @@
 
+import interfaces.*;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
- * @author gabriel
+ * Chat Server for various clients
  */
-public class MultiUserChatServer {
-    static List<ClienteConectado> clientes = new ArrayList<>();
-    ServerSocket ss;
-    Socket socketNovoCliente;
+public class MultiUserChatServer implements IChatServer {
+    private List<IChatClient> clients = new ArrayList<>();
+    private ServerSocket ss;
 
-    public void configurarServidor() {
+    public void setupServer() {
         try {
             ss = new ServerSocket(8200);
         } catch (Exception e) {
@@ -26,16 +21,19 @@ public class MultiUserChatServer {
         }
     }
 
-    public void aguardarClientes() {
+    public void waitForClients() {
         try {
             while (true) {
-                socketNovoCliente = ss.accept();
-                ClienteConectado novoCliente = new ClienteConectado(socketNovoCliente);                
-                clientes.add(novoCliente);
+                Socket socketNovoCliente = ss.accept();
+                ConnectedClient novoCliente = new ConnectedClient(socketNovoCliente, this);
+                clients.add(novoCliente);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public List<IChatClient> getClients() {
+        return clients;
     }
 }
