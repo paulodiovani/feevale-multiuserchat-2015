@@ -34,13 +34,13 @@ public class ClienteConectado implements IChatClient, Runnable {
         
     }
 
-    public void receberMensagens(){
+    public void receiveMessage(){
         try {
             String msg;
             while((msg = entrada.readLine()) != null){
                 System.out.println(msg);
                 for(IChatClient cliente:server.getClients()){
-                    cliente.enviarMensagem(msg);
+                    cliente.sendMessage(msg);
                 }
             }
         } catch (Exception e) {
@@ -48,14 +48,14 @@ public class ClienteConectado implements IChatClient, Runnable {
         }
     }
     
-    public void enviarMensagem(String msg){
+    public void sendMessage(String msg){
         saida.println(msg);
         saida.flush();
     }
     
     @Override
     public void run() {
-        receberMensagens();
+        receiveMessage();
     }
     
     

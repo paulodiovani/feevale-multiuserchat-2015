@@ -62,7 +62,7 @@ public class ChatClient implements IChatClient, Runnable {
         thCliente.start();
     }
     
-    public void receberMensagens(){
+    public void receiveMessage(){
         try {
             String msg;
             while((msg = in.readLine()) != null){
@@ -74,7 +74,7 @@ public class ChatClient implements IChatClient, Runnable {
         }
     }
     
-    public void enviarMensagem(String msg){
+    public void sendMessage(String msg){
         out.println(msg);
         out.flush();
         System.out.println(msg);
@@ -83,6 +83,6 @@ public class ChatClient implements IChatClient, Runnable {
     @Override
     public void run() {
         configurarCliente();
-        receberMensagens();
+        receiveMessage();
     }
 }
