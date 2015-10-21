@@ -9,15 +9,15 @@ import java.net.Socket;
 /**
  * Connected chat client class
  */
-public class ClienteConectado implements IChatClient, Runnable {
+public class ConnectedClient implements IChatClient, Runnable {
     private Socket s;
     private IChatServer server;
 
-    Thread thRecebeMsg;
-    BufferedReader entrada;
-    PrintWriter saida;
+    private Thread clientThread;
+    private BufferedReader in;
+    private PrintWriter out;
 
-    public ClienteConectado(Socket s, IChatServer server){
+    public ConnectedClient(Socket s, IChatServer server){
         setupClient(s);
         this.server = server;
     }
@@ -29,21 +29,19 @@ public class ClienteConectado implements IChatClient, Runnable {
     public void setupClient(Socket s) {
         this.s = s;
         try {
-            entrada = new BufferedReader(
-                    new InputStreamReader(s.getInputStream()));
-            saida = new PrintWriter(s.getOutputStream());
-            thRecebeMsg = new Thread(this);
-            thRecebeMsg.start();
+            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            out = new PrintWriter(s.getOutputStream());
+            clientThread = new Thread(this);
+            clientThread.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
     }
 
     public void receiveMessage(){
         try {
             String msg;
-            while((msg = entrada.readLine()) != null){
+            while((msg = in.readLine()) != null){
                 System.out.println(msg);
                 for(IChatClient cliente:server.getClients()){
                     cliente.sendMessage(msg);
@@ -55,14 +53,12 @@ public class ClienteConectado implements IChatClient, Runnable {
     }
     
     public void sendMessage(String msg){
-        saida.println(msg);
-        saida.flush();
+        out.println(msg);
+        out.flush();
     }
     
     @Override
     public void run() {
         receiveMessage();
     }
-    
-    
 }
