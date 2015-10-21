@@ -10,9 +10,8 @@ import java.util.List;
  * Chat Server for various clients
  */
 public class MultiUserChatServer implements IChatServer {
-    static List<ClienteConectado> clientes = new ArrayList<>();
-    ServerSocket ss;
-    Socket socketNovoCliente;
+    private List<IChatClient> clients = new ArrayList<IChatClient>();
+    private ServerSocket ss;
 
     public void setupServer() {
         try {
@@ -25,12 +24,16 @@ public class MultiUserChatServer implements IChatServer {
     public void waitForClients() {
         try {
             while (true) {
-                socketNovoCliente = ss.accept();
-                ClienteConectado novoCliente = new ClienteConectado(socketNovoCliente);                
-                clientes.add(novoCliente);
+                Socket socketNovoCliente = ss.accept();
+                ClienteConectado novoCliente = new ClienteConectado(socketNovoCliente, this);
+                clients.add(novoCliente);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<IChatClient> getClients() {
+        return clients;
     }
 }

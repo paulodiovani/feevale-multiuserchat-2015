@@ -16,5 +16,9 @@ public interface IChatServer {
      */
     void waitForClients();
 
-    List<ChatClient> getClients();
+    /**
+     * Get a list of connected clients
+     * @return
+     */
+    List<IChatClient> getClients();
 }
