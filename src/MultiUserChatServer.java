@@ -10,7 +10,7 @@ import java.util.List;
  * Chat Server for various clients
  */
 public class MultiUserChatServer implements IChatServer {
-    private List<IChatClient> clients = new ArrayList<IChatClient>();
+    private List<IChatClient> clients = new ArrayList<>();
     private ServerSocket ss;
 
     public void setupServer() {

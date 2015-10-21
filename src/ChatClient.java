@@ -10,16 +10,16 @@ import javax.swing.JTextArea;
  * Chat client class
  */
 public class ChatClient implements IChatClient, Runnable {
-    String host;
-    int porta;
-    Thread thCliente;
-    Socket s;
-    BufferedReader in;
-    PrintWriter out;
-    JTextArea txtSaida;
+    private String host;
+    private int port;
+    private Thread clientThread;
+    private Socket s;
+    private BufferedReader in;
+    private PrintWriter out;
+    private JTextArea outText;
 
-    public void setTxtSaida(JTextArea txtSaida) {
-        this.txtSaida = txtSaida;
+    public void setOutText(JTextArea outText) {
+        this.outText = outText;
     }
     
     public void setHost(String host) {
@@ -30,17 +30,17 @@ public class ChatClient implements IChatClient, Runnable {
         return host;
     }
 
-    public void setPorta(int porta) {
-        this.porta = porta;
+    public void setPort(int port) {
+        this.port = port;
     }
 
-    public int getPorta() {
-        return porta;
+    public int getPort() {
+        return port;
     }
     
     public void setupClient(){
         try {
-            s = new Socket(host, porta);
+            s = new Socket(host, port);
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out = new PrintWriter(s.getOutputStream());
         } catch (Exception e) {
@@ -53,16 +53,16 @@ public class ChatClient implements IChatClient, Runnable {
     }
     
     public void iniciar(){
-        thCliente = new Thread(this);
-        thCliente.start();
+        clientThread = new Thread(this);
+        clientThread.start();
     }
     
     public void receiveMessage(){
         try {
             String msg;
             while((msg = in.readLine()) != null){
-                txtSaida.append(msg);
-                txtSaida.append("\n");
+                outText.append(msg);
+                outText.append("\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
