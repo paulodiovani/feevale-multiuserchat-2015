@@ -54,7 +54,10 @@ public class ChatClient implements IChatClient, Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+    }
+
+    public void configurarCliente(Socket s) {
+        configurarCliente();
     }
     
     public void iniciar(){

@@ -19,8 +19,12 @@ public class ClienteConectado implements IChatClient, Runnable {
         configurarCliente(s);
         this.server = server;
     }
+
+    public void configurarCliente() throws Exception {
+        throw new Exception("Missing argument 'Socket'");
+    }
     
-    public void configurarCliente(Socket s){
+    public void configurarCliente(Socket s) {
         this.s = s;
         try {
             entrada = new BufferedReader(
