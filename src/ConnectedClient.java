@@ -22,10 +22,22 @@ public class ConnectedClient implements IChatClient, Runnable {
         this.server = server;
     }
 
+    @Override
     public void setupClient() throws Exception {
         throw new Exception("Missing argument 'Socket'");
     }
-    
+
+    @Override
+    public void setupClient(String host) throws Exception {
+        throw new Exception("Missing argument 'Socket'");
+    }
+
+    @Override
+    public void setupClient(String host, int port) throws Exception {
+        throw new Exception("Missing argument 'Socket'");
+    }
+
+    @Override
     public void setupClient(Socket s) {
         this.s = s;
         try {
@@ -38,12 +50,13 @@ public class ConnectedClient implements IChatClient, Runnable {
         }
     }
 
-    public void receiveMessage(){
+    @Override
+    public void receiveMessage() {
         try {
             String msg;
-            while((msg = in.readLine()) != null){
+            while ((msg = in.readLine()) != null) {
                 System.out.println(msg);
-                for(IChatClient cliente:server.getClients()){
+                for (IChatClient cliente : server.getClients()) {
                     cliente.sendMessage(msg);
                 }
             }
@@ -51,7 +64,8 @@ public class ConnectedClient implements IChatClient, Runnable {
             e.printStackTrace();
         }
     }
-    
+
+    @Override
     public void sendMessage(String msg){
         out.println(msg);
         out.flush();

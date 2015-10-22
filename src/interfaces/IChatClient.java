@@ -13,8 +13,25 @@ public interface IChatClient {
 
     /**
      * Configure the chat client Socket
+     *
+     * @param host
      */
-    void setupClient(Socket socket);
+    void setupClient(String host) throws Exception;
+
+    /**
+     * Configure the chat client Socket
+     *
+     * @param host
+     * @param port
+     */
+    void setupClient(String host, int port) throws Exception;
+
+    /**
+     * Configure the chat client Socket
+     *
+     * @param socket
+     */
+    void setupClient(Socket socket) throws Exception;
 
     /**
      * Send a message to other client(s)
