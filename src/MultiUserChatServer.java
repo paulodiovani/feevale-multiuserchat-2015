@@ -26,9 +26,9 @@ public class MultiUserChatServer implements IChatServer {
     public void waitForClients() {
         try {
             while (true) {
-                Socket socketNovoCliente = ss.accept();
-                ConnectedClient novoCliente = new ConnectedClient(socketNovoCliente, this);
-                clients.add(novoCliente);
+                Socket clientSocket = ss.accept();
+                ConnectedClient client = new ConnectedClient(clientSocket, this);
+                clients.add(client);
             }
         } catch (Exception e) {
             e.printStackTrace();

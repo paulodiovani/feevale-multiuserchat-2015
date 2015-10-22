@@ -52,7 +52,7 @@ public class ChatClient implements IChatClient, Runnable {
         setupClient();
     }
     
-    public void iniciar(){
+    public void initialize(){
         clientThread = new Thread(this);
         clientThread.start();
     }
