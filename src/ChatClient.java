@@ -47,16 +47,13 @@ public class ChatClient implements IChatClient, Runnable {
         try {
             in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             out = new PrintWriter(s.getOutputStream());
+            clientThread = new Thread(this);
+            clientThread.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public void initialize(){
-        clientThread = new Thread(this);
-        clientThread.start();
-    }
-
     @Override
     public void receiveMessage(){
         try {
@@ -74,12 +71,11 @@ public class ChatClient implements IChatClient, Runnable {
     public void sendMessage(String msg){
         out.println(msg);
         out.flush();
-        System.out.println(msg);
+        System.out.println("Client enviou: " + msg);
     }
 
     @Override
     public void run() {
-        setupClient();
         receiveMessage();
     }
 }
