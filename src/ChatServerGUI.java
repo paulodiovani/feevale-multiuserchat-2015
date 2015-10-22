@@ -166,11 +166,21 @@ public class ChatServerGUI extends javax.swing.JFrame {
 
         IChatServer server = new MultiUserChatServer();
         server.setupServer(port);
+
+        showChatWindow("Foobar");
     }
 
     private void txtPortaActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }                                        
+    }
+
+    private void showChatWindow(String username) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MultiUserChatServerGUI().setVisible(true);
+            }
+        });
+    }
 
     /**
      * @param args the command line arguments
