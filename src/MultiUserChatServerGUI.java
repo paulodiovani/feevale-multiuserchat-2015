@@ -4,17 +4,39 @@
  * and open the template in the editor.
  */
 
+import interfaces.IChatClient;
+
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 /**
  *
  * @author Thaís
  */
 public class MultiUserChatServerGUI extends javax.swing.JFrame {
+    private String username;
+    private String host;
+    private int port;
+    private ChatClient client;
 
     /**
      * Creates new form MultiUserChatServerGUI
      */
     public MultiUserChatServerGUI() {
         initComponents();
+        initWindowListeners();
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     /**
@@ -93,6 +115,51 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
+    private void initWindowListeners() {
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent windowEvent) {
+                try {
+                    client = new ChatClient();
+                    client.setupClient(host, port);
+                    client.setOutText(txtMsgUsuarios);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent windowEvent) {
+
+            }
+        });
+    }
+
     private void txtMsgEnviadaActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
     }                                             
@@ -106,42 +173,9 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
     }
     
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MultiUserChatServerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MultiUserChatServerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MultiUserChatServerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MultiUserChatServerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MultiUserChatServerGUI().setVisible(true);
-            }
-        });
+        String message = txtMsgEnviada.getText();
+        txtMsgEnviada.setText("");
+        client.sendMessage(message);
     }
 
     // Variables declaration - do not modify                     
@@ -151,5 +185,5 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField txtMsgEnviada;
     private javax.swing.JTextArea txtMsgUsuarios;
-    // End of variables declaration                   
+    // End of variables declaration
 }

@@ -9,22 +9,32 @@ import java.util.List;
 /**
  * Chat Server for various clients
  */
-public class MultiUserChatServer implements IChatServer {
+public class MultiUserChatServer implements IChatServer, Runnable {
+    private Thread serverThread;
     private List<IChatClient> clients = new ArrayList<>();
     private ServerSocket ss;
 
     private static int PORT = 8200;
 
+    @Override
     public void setupServer() {
+        setupServer(PORT);
+    }
+
+    @Override
+    public void setupServer(int port) {
         try {
-            ss = new ServerSocket(PORT);
-            System.out.println("Server listening on port " + PORT);
+            ss = new ServerSocket(port);
+            System.out.println("Server listening on port " + port);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        serverThread = new Thread(this);
+        serverThread.start();
     }
 
-    public void waitForClients() {
+    private void waitForClients() {
         try {
             while (true) {
                 Socket clientSocket = ss.accept();
@@ -39,5 +49,10 @@ public class MultiUserChatServer implements IChatServer {
 
     public List<IChatClient> getClients() {
         return clients;
+    }
+
+    @Override
+    public void run() {
+        waitForClients();
     }
 }
