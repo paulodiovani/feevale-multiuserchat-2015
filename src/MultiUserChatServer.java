@@ -18,6 +18,7 @@ public class MultiUserChatServer implements IChatServer {
     public void setupServer() {
         try {
             ss = new ServerSocket(PORT);
+            System.out.println("Server listening on port " + PORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,6 +29,7 @@ public class MultiUserChatServer implements IChatServer {
             while (true) {
                 Socket clientSocket = ss.accept();
                 ConnectedClient client = new ConnectedClient(clientSocket, this);
+                System.out.println("New client connected from " + clientSocket.getInetAddress().getHostAddress());
                 clients.add(client);
             }
         } catch (Exception e) {
