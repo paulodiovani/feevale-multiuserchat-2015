@@ -20,6 +20,8 @@ public class ChatClient implements IChatClient, Runnable {
     private static String HOST = "127.0.0.1";
     private static int PORT = 8200;
 
+    private String username;
+
     public void setOutText(JTextArea outText) {
         this.outText = outText;
     }
@@ -53,7 +55,17 @@ public class ChatClient implements IChatClient, Runnable {
             e.printStackTrace();
         }
     }
-    
+
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
     @Override
     public void receiveMessage(){
         try {
@@ -69,9 +81,9 @@ public class ChatClient implements IChatClient, Runnable {
 
     @Override
     public void sendMessage(String msg){
-        out.println(msg);
+        out.println(this.username + ": " + msg);
         out.flush();
-        System.out.println("Client enviou: " + msg);
+        System.out.println(this.username + " enviou: " + msg);
     }
 
     @Override
