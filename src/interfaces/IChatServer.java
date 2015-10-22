@@ -17,11 +17,6 @@ public interface IChatServer {
     void setupServer(int port);
 
     /**
-     * Loop and wait for Socket client connections
-     */
-    void waitForClients();
-
-    /**
      * Get a list of connected clients
      * @return
      */

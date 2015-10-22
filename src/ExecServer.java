@@ -11,7 +11,6 @@ public class ExecServer {
     public static void main(String[] args) {
         IChatServer server = new MultiUserChatServer();
         server.setupServer();
-        server.waitForClients();
     }
     
 }

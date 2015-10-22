@@ -166,7 +166,6 @@ public class ChatServerGUI extends javax.swing.JFrame {
 
         IChatServer server = new MultiUserChatServer();
         server.setupServer(port);
-        server.waitForClients();
     }
 
     private void txtPortaActionPerformed(java.awt.event.ActionEvent evt) {                                         
