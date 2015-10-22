@@ -155,8 +155,12 @@ public class ChatServerGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                             
 
-    private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
+    private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {
+        String username = txtNomeUsuarioServer.getText();
+        String host = txtServer.getText();
+        int port = Integer.parseInt(txtPortaSever.getText());
+
+        showChatWindow(username, host, port);
     }                                           
 
     private void txtServerActionPerformed(java.awt.event.ActionEvent evt) {                                          
