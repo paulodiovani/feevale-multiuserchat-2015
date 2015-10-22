@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import interfaces.IChatServer;
+
 /**
  *
  * @author Thaís
@@ -160,8 +162,12 @@ public class ChatServerGUI extends javax.swing.JFrame {
     }                                         
 
     private void btnIniciaServerActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                                               
+        int port = Integer.parseInt(txtPorta.getText());
+
+        IChatServer server = new MultiUserChatServer();
+        server.setupServer(port);
+        server.waitForClients();
+    }
 
     private void txtPortaActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
