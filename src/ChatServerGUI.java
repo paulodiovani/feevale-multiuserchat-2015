@@ -6,6 +6,8 @@
 
 import interfaces.IChatServer;
 
+import javax.print.DocFlavor;
+
 /**
  *
  * @author Thaís
@@ -161,23 +163,29 @@ public class ChatServerGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                         
 
-    private void btnIniciaServerActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void btnIniciaServerActionPerformed(java.awt.event.ActionEvent evt) {
+        String username = txtNomeUsuarioServer.getText();
+        String host = "127.0.0.1";
         int port = Integer.parseInt(txtPorta.getText());
 
         IChatServer server = new MultiUserChatServer();
         server.setupServer(port);
 
-        showChatWindow("Foobar");
+        showChatWindow(username, host, port);
     }
 
     private void txtPortaActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }
 
-    private void showChatWindow(String username) {
+    private void showChatWindow(final String username, final String host, final int port) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MultiUserChatServerGUI().setVisible(true);
+                MultiUserChatServerGUI chatGui = new MultiUserChatServerGUI();
+                chatGui.setUsername(username);
+                chatGui.setHost(host);
+                chatGui.setPort(port);
+                chatGui.setVisible(true);
             }
         });
     }
