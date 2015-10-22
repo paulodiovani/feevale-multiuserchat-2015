@@ -13,9 +13,11 @@ public class MultiUserChatServer implements IChatServer {
     private List<IChatClient> clients = new ArrayList<>();
     private ServerSocket ss;
 
+    private static int PORT = 8200;
+
     public void setupServer() {
         try {
-            ss = new ServerSocket(8200);
+            ss = new ServerSocket(PORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
