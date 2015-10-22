@@ -15,15 +15,22 @@ public class MultiUserChatServer implements IChatServer {
 
     private static int PORT = 8200;
 
+    @Override
     public void setupServer() {
+        setupServer(PORT);
+    }
+
+    @Override
+    public void setupServer(int port) {
         try {
-            ss = new ServerSocket(PORT);
-            System.out.println("Server listening on port " + PORT);
+            ss = new ServerSocket(port);
+            System.out.println("Server listening on port " + port);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Override
     public void waitForClients() {
         try {
             while (true) {

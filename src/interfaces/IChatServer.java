@@ -12,6 +12,11 @@ public interface IChatServer {
     void setupServer();
 
     /**
+     * Configures and start a chat server
+     */
+    void setupServer(int port);
+
+    /**
      * Loop and wait for Socket client connections
      */
     void waitForClients();
