@@ -67,6 +67,18 @@ public class ConnectedClient implements IChatClient, Runnable {
         try {
             String msg;
             while ((msg = in.readLine()) != null) {
+                Message message = new Message(msg);
+
+                switch (message.getType()) {
+                    case Message.LOGIN:
+                        setUsername(message.getContent());
+                        msg = username + " acabou de entrar!";
+                        break;
+                    case Message.CHAT:
+                        msg = username + ": " + message.getContent();
+                        break;
+                }
+
                 for (IChatClient client : server.getClients()) {
                     client.sendMessage(msg);
                 }

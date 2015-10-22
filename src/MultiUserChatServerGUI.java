@@ -121,9 +121,10 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
             public void windowOpened(WindowEvent windowEvent) {
                 try {
                     client = new ChatClient();
-                    client.setUsername(username);
                     client.setupClient(host, port);
                     client.setOutText(txtMsgUsuarios);
+                    client.setUsername(username);
+                    client.login();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

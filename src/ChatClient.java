@@ -79,9 +79,21 @@ public class ChatClient implements IChatClient, Runnable {
         }
     }
 
+    public void login() {
+        sendMessage(username, Message.LOGIN);
+    }
+
     @Override
-    public void sendMessage(String msg){
-        out.println(this.username + ": " + msg);
+    public void sendMessage(String msg) {
+        sendMessage(msg, Message.CHAT);
+    }
+
+    public void sendMessage(String msg, String type){
+        Message message = new Message();
+        message.setType(type);
+        message.setContent(msg);
+
+        out.println(message);
         out.flush();
         System.out.println(this.username + " enviou: " + msg);
     }
