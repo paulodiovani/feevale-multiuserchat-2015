@@ -132,12 +132,11 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-
+                client.logout();
             }
 
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-
             }
 
             @Override

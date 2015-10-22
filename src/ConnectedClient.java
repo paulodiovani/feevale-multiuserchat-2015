@@ -74,6 +74,9 @@ public class ConnectedClient implements IChatClient, Runnable {
                         setUsername(message.getContent());
                         msg = username + " acabou de entrar!";
                         break;
+                    case Message.LOGOUT:
+                        msg = username + " saiu da sala!";
+                        break;
                     case Message.CHAT:
                         msg = username + ": " + message.getContent();
                         break;

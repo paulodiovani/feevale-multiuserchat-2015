@@ -83,6 +83,10 @@ public class ChatClient implements IChatClient, Runnable {
         sendMessage(username, Message.LOGIN);
     }
 
+    public void logout() {
+        sendMessage(username, Message.LOGOUT);
+    }
+
     @Override
     public void sendMessage(String msg) {
         sendMessage(msg, Message.CHAT);

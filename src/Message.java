@@ -5,8 +5,9 @@ import java.io.Serializable;
  * with message type and content.
  */
 public class Message implements Serializable {
-    static final transient String LOGIN = "LG";
-    static final transient String CHAT  = "CT";
+    static final transient String LOGIN  = "LG";
+    static final transient String LOGOUT = "LO";
+    static final transient String CHAT   = "CT";
 
     private String type;
     private String content;
