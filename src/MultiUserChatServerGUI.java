@@ -17,6 +17,7 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
     private String username;
     private String host;
     private int port;
+    private ChatClient client;
 
     /**
      * Creates new form MultiUserChatServerGUI
@@ -118,9 +119,10 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent windowEvent) {
-                IChatClient client = new ChatClient();
                 try {
+                    client = new ChatClient();
                     client.setupClient(host, port);
+                    client.setOutText(txtMsgUsuarios);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -171,7 +173,9 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
     }
     
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+        String message = txtMsgEnviada.getText();
+        txtMsgEnviada.setText("");
+        client.sendMessage(message);
     }
 
     // Variables declaration - do not modify                     
