@@ -34,6 +34,18 @@ public interface IChatClient {
     void setupClient(Socket socket) throws Exception;
 
     /**
+     *
+     * @param username
+     */
+    void setUsername(String username);
+
+    /**
+     *
+     * @return
+     */
+    String getUsername();
+
+    /**
      * Send a message to other client(s)
      * @param message
      */

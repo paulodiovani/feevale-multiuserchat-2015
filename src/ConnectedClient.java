@@ -17,6 +17,8 @@ public class ConnectedClient implements IChatClient, Runnable {
     private BufferedReader in;
     private PrintWriter out;
 
+    private String username;
+
     public ConnectedClient(Socket s, IChatServer server){
         setupClient(s);
         this.server = server;
@@ -48,6 +50,16 @@ public class ConnectedClient implements IChatClient, Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     @Override
