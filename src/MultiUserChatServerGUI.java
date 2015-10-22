@@ -4,17 +4,38 @@
  * and open the template in the editor.
  */
 
+import interfaces.IChatClient;
+
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 /**
  *
  * @author Thaís
  */
 public class MultiUserChatServerGUI extends javax.swing.JFrame {
+    private String username;
+    private String host;
+    private int port;
 
     /**
      * Creates new form MultiUserChatServerGUI
      */
     public MultiUserChatServerGUI() {
         initComponents();
+        initWindowListeners();
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     /**
@@ -93,6 +114,50 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
+    private void initWindowListeners() {
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent windowEvent) {
+                IChatClient client = new ChatClient();
+                try {
+                    client.setupClient(host, port);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent windowEvent) {
+
+            }
+        });
+    }
+
     private void txtMsgEnviadaActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
     }                                             
@@ -116,5 +181,5 @@ public class MultiUserChatServerGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField txtMsgEnviada;
     private javax.swing.JTextArea txtMsgUsuarios;
-    // End of variables declaration                   
+    // End of variables declaration
 }
